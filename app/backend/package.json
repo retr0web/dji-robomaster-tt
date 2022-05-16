@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "drone.js",
+  "scripts": {
+    "start": "node drone.js & node videoServer.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "socket.io": "^2.2.0"
+  },
+  "author": "retr0web",
+  "license": "ISC"
+}

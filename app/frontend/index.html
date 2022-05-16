@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<title>index</title>
+<meta charset='utf-8' />
+<meta name='viewport'
+      content='width=device-width, initial-scale=1.0, maximum-scale=5.0' />
+<link rel='stylesheet' href='style.css' />
+</head>
+<body>
+    <main>
+        <canvas id="video-canvas"></canvas>
+        <section class="button-section">
+            <button data-command="takeoff">🚁 Takeoff 🚁</button>
+            <button data-command="forward 50">⬆️ Forward ⬆️</button>
+            <button data-command="land">🅿️ Land 🅿️</button>
+            <button data-command="left 50">⬅️ Left ⬅️</button>
+            <button data-command="command">🚦 Command 🚦</button>
+            <button data-command="right 50">➡️ Right ➡️</button>
+            <button data-command="up 50">👆 Up 👆</button>
+            <button data-command="back 50">⬇️ Back ⬇️</button>
+            <button data-command="down 50">👇 Down 👇</button>
+            <button data-command="ccw 45">🔄 Rotate ccw 90 🔄</button>
+            <div class="two-button">
+                <button data-command="emergency">🚨 EMERGENCY 🚨</button>
+                <button data-command="stop">🛑 STOP 🛑</button>
+            </div>
+            <button data-command="cw 45">🔃 Rotate cw 90 🔃</button>
+        </section>
+
+        <section class="button-section">
+            <button data-command="motoron">🥶 Motor ON 🥶</button>
+            <button data-command="flip f">⬆️ Flip forward ⬆️</button>
+            <button data-command="motoroff">📴 Motor OFF 📴</button>
+            <button data-command="flip l">⬅️ Flip left ⬅️</button>
+            <button data-command="throwfly">🏈 Throw&Fly 🏈</button>
+            <button data-command="flip r">➡️ Flip right ➡️</button>
+            <button id="screen">📸 Take photo 📸</button>
+            <button data-command="flip b">⬇️ Flip back ⬇️</button>
+            <div class="speed-component">
+                <label for="speed">Speed:</label>
+                <input type="range" id="speed" name="speed" min="10" max="100"/>
+                <button id="speedChange" data-command="speed 10">Set speed</button>
+            </div>
+        </section>
+
+        <section class="button-section">
+            <button data-command="EXT led 255 0 0">🔴 Red LED 🔴</button>
+            <button data-command="EXT led 0 255 0">🟢 Green LED 🟢</button>
+            <button data-command="EXT led 0 0 255">🔵 Blue LED 🔵</button>
+            <button data-command="EXT led br 1 0 0 255">🔵 Pulse Blue 🔵</button>
+            <button data-command="EXT led 0 0 0">⚫ Turn OFF LED ⚫</button>
+            <button data-command="EXT led bl 5 0 0 255 255 0 0">🚔 POLICE! 🚔</button>
+            <div class="two-button">
+                <input id="textToDisplay" type="text" maxlength="70" value="Mykola" />
+                <button id="textButton" data-command="EXT mled l b 1 Mykola">Display text</button>
+            </div>
+            <div class="color-component">
+                <input type="color" id="color" name="color"
+                    value="#3399ff">
+                <button id="colorButton" data-command="EXT led 0 0 255">Set LED to custom color</button>
+            </div>
+            <div class="two-button">
+                <button data-command="EXT mled sl 100">🔅 Low brightness 🔅</button>
+                <button data-command="EXT mled sl 255">🔆 High brightness 🔆</button>
+            </div>
+        </section>
+        
+    </main>
+    <script src="input.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" src="jsmpeg.min.js"></script>
+    <script>
+        const canvas = document.getElementById('video-canvas');
+        const url = 'ws://'+document.location.hostname+':3001/stream';
+        let player = new JSMpeg.Player(url, {canvas: canvas, preserveDrawingBuffer: true});
+        
+        const ctx = canvas.getContext('2d');
+        const screen = document.querySelector('#screen');
+        console.log(player);
+
+        function takeScreenshot() {
+        const link = document.createElement('a');
+        link.download = 'dronePicture.png';
+        link.href = player.renderer.canvas.toDataURL();
+        link.click();
+        }
+
+        screen.addEventListener('click', takeScreenshot);
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html -p 7777"
+  },
+  "dependencies": {
+    "parcel": "^2.5.0",
+    "socket.io-client": "^2.1.1"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "process": "^0.11.10"
+  },
+  "author": "retr0web",
+  "license": "ISC"
+}
